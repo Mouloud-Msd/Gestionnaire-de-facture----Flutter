@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:reewayyfacture/Utils/Utils.dart';
 import 'package:reewayyfacture/features/mes_factures/pages/MesFacturesPage.dart';
@@ -21,12 +23,12 @@ class MyApp extends StatelessWidget {
           title: 'FacTuDemo',
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(
-                seedColor: Color.fromARGB(255, 180, 105, 7)),
+                seedColor: Color.fromARGB(255, 7, 102, 180)),
             useMaterial3: true,
           ),
           darkTheme: ThemeData.dark(),
           themeMode: mode,
-          home: const HomePage(), // ta page principale
+          home: const HomePage(),
         );
       },
     );
@@ -47,34 +49,71 @@ class HomePage extends StatelessWidget {
           },
         ),
       ]),
-      body: ListView(
-        padding: EdgeInsets.all(16),
+      body: Stack(
         children: [
-          ElevatedButton.icon(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => NewFacturePage()),
-              );
-            },
-            label: Text('Nouvelle facture'),
-            icon: (Icon(Icons.add_circle_outline)),
+          Positioned.fill(
+            child: Image.asset(
+              'assets/image/factures.jpg',
+              fit: BoxFit.cover,
+            ),
           ),
-          SizedBox(height: 16),
-          ElevatedButton.icon(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => MesFacturesPage(),
-                    ));
-              },
-              label: Text('Mes factures'),
-              icon: (Icon(Icons.receipt))),
+          Positioned.fill(
+            child: Center(
+              //child: ClipRRect(
+              //borderRadius: BorderRadius.circular(20),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                child: Container(
+                  padding: const EdgeInsets.all(60),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 48),
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 211, 212, 212).withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.white30),
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => NewFacturePage()),
+                          );
+                        },
+                        label: const Text(
+                          'Nouvelle facture',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        icon: const Icon(Icons.add_circle_outline),
+                      ),
+                      const SizedBox(height: 20),
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => MesFacturesPage()),
+                          );
+                        },
+                        label: const Text(
+                          'Mes factures',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        icon: const Icon(Icons.receipt),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              //),
+            ),
+          ),
         ],
       ),
       bottomNavigationBar: Container(
-        color: Colors.transparent, // ou couleur de fond si tu veux
+        color: Colors.transparent,
         padding: EdgeInsets.all(8),
         child: Text(
           '© Mouloud MESSAD 2025',
