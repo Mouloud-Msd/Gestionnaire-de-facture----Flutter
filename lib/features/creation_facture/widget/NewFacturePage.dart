@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:reewayyfacture/features/facture/widget/PreviewFacture.dart';
+import 'package:reewayyfacture/DB/db.config.dart';
+import 'package:reewayyfacture/features/creation_facture/widget/PreviewFacture.dart';
 
 import '../../article/data/ArticleData.dart';
 import '../../article/widget/Article.dart';
@@ -147,10 +148,50 @@ class _NewFacturePageState extends State<NewFacturePage> {
 
                     // boutton sauvegarder facture
                     ElevatedButton.icon(
-                      onPressed: () {
-                        setState(() {
-                          articles.add(ArticleData());
-                        });
+                      onPressed: () async {
+                        double totalHT = 0;
+                        List<Map<String, dynamic>> articleMaps = [];
+
+                        for (var article in articles) {
+                          final qte = double.tryParse(
+                                  article.quantityController.text) ??
+                              0;
+                          final pu =
+                              double.tryParse(article.priceController.text) ??
+                                  0;
+                          final total = qte * pu;
+                          totalHT += total;
+
+                          articleMaps.add({
+                            'name': article.nameController.text,
+                            'quantity': qte,
+                            'price_ht': pu,
+                            'total_ht': total,
+                          });
+                        }
+
+                        final factureData = {
+                          'client_name': _clientNameController.text,
+                          'client_email': _clientEmailController.text,
+                          'date': _selectedDate?.toIso8601String(),
+                          'total_ht': totalHT,
+                          'total_ttc': totalHT * 1.20,
+                        };
+
+                        final db = DatabaseHelper.instance;
+                        final factureId = await db.insertFacture(factureData);
+
+                        for (var article in articleMaps) {
+                          article['facture_id'] = factureId;
+                        }
+
+                        await db.insertArticles(articleMaps);
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                              content:
+                                  Text('Facture sauvegardée avec succès !')),
+                        );
                       },
                       icon: Icon(Icons.save),
                       label: Text('Sauvegarder la facture'),

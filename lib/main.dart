@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:reewayyfacture/features/mes_factures/pages/MesFacturesPage.dart';
 
-import 'features/facture/widget/NewFacturePage.dart';
+import 'features/creation_facture/widget/NewFacturePage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -46,10 +47,14 @@ class HomePage extends StatelessWidget {
           SizedBox(height: 16),
           ElevatedButton(
             onPressed: () {
-              // À implémenter plus tard
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Mes factures : à venir')),
-              );
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => MesFacturesPage(),
+                  ));
+              // ScaffoldMessenger.of(context).showSnackBar(
+              //   //SnackBar(content: Text('Mes factures : à venir')),
+              // );
             },
             child: Text('Mes factures'),
           ),
