@@ -53,7 +53,7 @@ class _NewFacturePageState extends State<NewFacturePage> {
 
   void _removeArticle(int index) {
     setState(() {
-      articles[index].dispose(); // libérer les contrôleurs mémoire
+      articles[index].dispose();
       articles.removeAt(index);
     });
   }

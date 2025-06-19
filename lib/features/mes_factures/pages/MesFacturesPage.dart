@@ -34,10 +34,11 @@ class _MesFacturesPageState extends State<MesFacturesPage> {
     return Scaffold(
       appBar: AppBar(title: Text('Mes factures')),
       body: _factures.isEmpty
-          ? Column(children: [
+          ? SingleChildScrollView(
+              child: Column(children: [
               Image.asset('assets/image/empty.jpg'),
               Text("Aucune facture n'est encore enregistrée")
-            ])
+            ]))
           : ListView.builder(
               itemCount: _factures.length,
               itemBuilder: (context, index) {
