@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reewayyfacture/DB/db.config.dart';
+import 'package:reewayyfacture/Utils/Utils.dart';
 
 class MesFacturesPage extends StatefulWidget {
   const MesFacturesPage({super.key});
@@ -32,8 +33,8 @@ class _MesFacturesPageState extends State<MesFacturesPage> {
       appBar: AppBar(title: Text('Mes factures')),
       body: _factures.isEmpty
           ? Column(children: [
-              Text("Aucune facture n'est encore enregistrée."),
-              Image.asset('assets/images/empty.jpg')
+              Image.asset('assets/image/empty.jpg'),
+              Text("Aucune facture n'est encore enregistrée")
             ])
           : ListView.builder(
               itemCount: _factures.length,
@@ -47,9 +48,24 @@ class _MesFacturesPageState extends State<MesFacturesPage> {
                         'Date : ${facture['date']?.toString().substring(0, 10) ?? 'N/A'}\n'
                         'Total TTC : ${facture['total_ttc']?.toStringAsFixed(2) ?? '0'} €'),
                     isThreeLine: true,
-                    onTap: () {
-                      //xsa
-                    },
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.picture_as_pdf, color: Colors.blue),
+                          onPressed: () {
+                            Utils.exporterFacture(facture['id']);
+                          },
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.delete, color: Colors.red),
+                          onPressed: () async {
+                            await DatabaseHelper.instance
+                                .deleteFacture(facture['id']);
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },

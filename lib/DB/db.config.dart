@@ -15,6 +15,7 @@ class DatabaseHelper {
     return _db!;
   }
 
+  // fonction d'initiatin de la bd, des tabes ect..
   Future<Database> _initDb() async {
     Directory docDir = await getApplicationDocumentsDirectory();
     String path = join(docDir.path, 'factures.db');
@@ -47,11 +48,13 @@ class DatabaseHelper {
     ''');
   }
 
+  //fonction pour ajouter une factures
   Future<int> insertFacture(Map<String, dynamic> facture) async {
     final db = await database;
     return await db.insert('facture', facture);
   }
 
+  //fonction pour inserer des articles
   Future<void> insertArticles(List<Map<String, dynamic>> articles) async {
     final db = await database;
     Batch batch = db.batch();
@@ -59,5 +62,12 @@ class DatabaseHelper {
       batch.insert('article', article);
     }
     await batch.commit(noResult: true);
+  }
+
+  //fonction pour supprimer une facture et ses articles
+  Future<void> deleteFacture(int id) async {
+    final db = await database;
+    await db.delete('article', where: 'facture_id = ?', whereArgs: [id]);
+    await db.delete('facture', where: 'id = ?', whereArgs: [id]);
   }
 }
