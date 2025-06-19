@@ -52,9 +52,6 @@ class HomePage extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (_) => MesFacturesPage(),
                   ));
-              // ScaffoldMessenger.of(context).showSnackBar(
-              //   //SnackBar(content: Text('Mes factures : à venir')),
-              // );
             },
             child: Text('Mes factures'),
           ),

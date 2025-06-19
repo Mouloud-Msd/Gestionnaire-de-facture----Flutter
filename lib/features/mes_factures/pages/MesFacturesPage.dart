@@ -30,27 +30,25 @@ class _MesFacturesPageState extends State<MesFacturesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Mes factures')),
-      body: _factures.isEmpty
-          ? Center(child: Text("Aucune facture n'est encore enregistrée."))
-          : ListView.builder(
-              itemCount: _factures.length,
-              itemBuilder: (context, index) {
-                final facture = _factures[index];
-                return Card(
-                  margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: ListTile(
-                    title: Text(facture['client_name'] ?? 'Sans nom'),
-                    subtitle: Text(
-                        'Date : ${facture['date']?.toString().substring(0, 10) ?? 'N/A'}\n'
-                        'Total TTC : ${facture['total_ttc']?.toStringAsFixed(2) ?? '0'} €'),
-                    isThreeLine: true,
-                    onTap: () {
-                      // TODO : afficher détails si tu veux
-                    },
-                  ),
-                );
+      body: ListView.builder(
+        itemCount: _factures.length,
+        itemBuilder: (context, index) {
+          final facture = _factures[index];
+          return Card(
+            margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: ListTile(
+              title: Text(facture['client_name'] ?? 'Sans nom'),
+              subtitle: Text(
+                  'Date : ${facture['date']?.toString().substring(0, 10) ?? 'N/A'}\n'
+                  'Total TTC : ${facture['total_ttc']?.toStringAsFixed(2) ?? '0'} €'),
+              isThreeLine: true,
+              onTap: () {
+                //xsa
               },
             ),
+          );
+        },
+      ),
     );
   }
 }
