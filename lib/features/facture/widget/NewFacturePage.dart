@@ -155,22 +155,25 @@ class _NewFacturePageState extends State<NewFacturePage> {
                       icon: Icon(Icons.save),
                       label: Text('Sauvegarder la facture'),
                     ),
-                    if (_showPreview)
-                      PreviewFacture(
-                        clientName: _clientNameController.text,
-                        clientEmail: _clientEmailController.text,
-                        date: _selectedDate,
-                        articles: articles,
-                        onClose: () {
-                          setState(() {
-                            _showPreview = false;
-                          });
-                        },
-                      ),
                   ],
                 ),
               ),
-            )
+            ),
+            // Controle de la visualisation
+            if (_showPreview)
+              Positioned.fill(
+                child: PreviewFacture(
+                  clientName: _clientNameController.text,
+                  clientEmail: _clientEmailController.text,
+                  date: _selectedDate,
+                  articles: articles,
+                  onClose: () {
+                    setState(() {
+                      _showPreview = false;
+                    });
+                  },
+                ),
+              ),
           ],
         ));
   }
