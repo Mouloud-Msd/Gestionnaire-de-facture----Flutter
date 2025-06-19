@@ -58,11 +58,24 @@ class _NewFacturePageState extends State<NewFacturePage> {
     });
   }
 
+  double get totalHT {
+    double sum = 0;
+    for (var article in articles) {
+      final qte = double.tryParse(article.quantityController.text) ?? 0;
+      final prix = double.tryParse(article.priceController.text) ?? 0;
+      sum += qte * prix;
+    }
+    return sum;
+  }
+
+  double get tva => totalHT * 0.20;
+  double get totalTTC => totalHT + tva;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('New Facture'),
+          title: Text('Nouvelle Facture'),
         ),
         body: Stack(
           children: [
@@ -72,7 +85,7 @@ class _NewFacturePageState extends State<NewFacturePage> {
                 key: _formKey,
                 child: ListView(
                   children: [
-                    Text('Informations client',
+                    Text('Informations du client',
                         style: Theme.of(context).textTheme.titleLarge),
                     SizedBox(height: 16),
                     TextFormField(
@@ -110,6 +123,21 @@ class _NewFacturePageState extends State<NewFacturePage> {
                         ),
                       ],
                     ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Récap',
+                              style: Theme.of(context).textTheme.titleMedium),
+                          SizedBox(height: 8),
+                          Text('Total HT : ${totalHT.toStringAsFixed(2)} €'),
+                          Text('TVA (20 %) : ${tva.toStringAsFixed(2)} €'),
+                          Text('Total TTC : ${totalTTC.toStringAsFixed(2)} €',
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                    ),
                     SizedBox(height: 30),
                     Divider(),
                     SizedBox(height: 12),
@@ -135,7 +163,7 @@ class _NewFacturePageState extends State<NewFacturePage> {
                       );
                     }).toList(),
 
-                    // boutton visualise
+                    // boutton visualiser
                     ElevatedButton.icon(
                       onPressed: () {
                         setState(() {

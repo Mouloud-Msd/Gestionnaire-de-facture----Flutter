@@ -49,7 +49,6 @@ class _MesFacturesPageState extends State<MesFacturesPage> {
                   },
                   onDelete: () async {
                     await DatabaseHelper.instance.deleteFacture(facture['id']);
-                    // Pense à rafraîchir la liste après suppression
                     _loadFactures();
                   },
                 );
