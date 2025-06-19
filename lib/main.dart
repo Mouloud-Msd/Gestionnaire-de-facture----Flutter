@@ -64,7 +64,7 @@ class HomePage extends StatelessWidget {
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
                 child: Container(
-                  padding: const EdgeInsets.all(60),
+                  padding: const EdgeInsets.all(12),
                   margin:
                       const EdgeInsets.symmetric(horizontal: 24, vertical: 48),
                   decoration: BoxDecoration(
