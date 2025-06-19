@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:reewayyfacture/DB/db.config.dart';
+import 'package:reewayyfacture/Utils/Utils.dart';
 import 'package:reewayyfacture/features/creation_facture/widget/PreviewFacture.dart';
 
 import '../../article/data/ArticleData.dart';
@@ -74,9 +75,14 @@ class _NewFacturePageState extends State<NewFacturePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Nouvelle Facture'),
-        ),
+        appBar: AppBar(title: Text('Nouvelle Facture'), actions: [
+          IconButton(
+            icon: Icon(Icons.brightness_6),
+            onPressed: () {
+              Utils.toggleTheme();
+            },
+          ),
+        ]),
         body: Stack(
           children: [
             Padding(

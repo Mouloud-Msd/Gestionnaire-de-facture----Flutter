@@ -32,7 +32,14 @@ class _MesFacturesPageState extends State<MesFacturesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Mes factures')),
+      appBar: AppBar(title: Text('Mes factures'), actions: [
+        IconButton(
+          icon: Icon(Icons.brightness_6),
+          onPressed: () {
+            Utils.toggleTheme();
+          },
+        ),
+      ]),
       body: _factures.isEmpty
           ? SingleChildScrollView(
               child: Column(children: [

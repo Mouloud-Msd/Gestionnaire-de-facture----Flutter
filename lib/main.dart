@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reewayyfacture/Utils/Utils.dart';
 import 'package:reewayyfacture/features/mes_factures/pages/MesFacturesPage.dart';
 
 import 'features/creation_facture/widget/NewFacturePage.dart';
@@ -12,14 +13,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'FacTuDemo',
-      theme: ThemeData(
-        colorScheme:
-            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 180, 105, 7)),
-        useMaterial3: true,
-      ),
-      home: const HomePage(),
+    return ValueListenableBuilder<ThemeMode>(
+      valueListenable: Utils.themeMode,
+      builder: (context, mode, _) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'FacTuDemo',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(
+                seedColor: Color.fromARGB(255, 180, 105, 7)),
+            useMaterial3: true,
+          ),
+          darkTheme: ThemeData.dark(),
+          themeMode: mode,
+          home: const HomePage(), // ta page principale
+        );
+      },
     );
   }
 }
@@ -30,7 +39,14 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('FacTuDemo')),
+      appBar: AppBar(title: Text('FacTuDemo'), actions: [
+        IconButton(
+          icon: Icon(Icons.brightness_6),
+          onPressed: () {
+            Utils.toggleTheme();
+          },
+        ),
+      ]),
       body: ListView(
         padding: EdgeInsets.all(16),
         children: [

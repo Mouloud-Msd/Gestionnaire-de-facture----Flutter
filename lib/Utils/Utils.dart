@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -64,5 +65,13 @@ class Utils {
     await Printing.layoutPdf(
       onLayout: (format) async => doc.save(),
     );
+  }
+
+  static final ValueNotifier<ThemeMode> themeMode =
+      ValueNotifier(ThemeMode.light);
+
+  static void toggleTheme() {
+    themeMode.value =
+        themeMode.value == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
   }
 }
