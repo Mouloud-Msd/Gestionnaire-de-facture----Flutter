@@ -42,7 +42,7 @@ class Utils {
                 style: pw.TextStyle(font: ttf)),
             pw.SizedBox(height: 24),
             pw.Table.fromTextArray(
-              headers: ['Article', 'Quantité', 'PU', 'Total HT'],
+              headers: ['Article', 'Quantité', 'Prix Unitaire', 'Total HT'],
               data: articles
                   .map((a) => [
                         a['name'],

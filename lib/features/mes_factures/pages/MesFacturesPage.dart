@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:reewayyfacture/DB/db.config.dart';
 import 'package:reewayyfacture/Utils/Utils.dart';
 
+import '../widget/FactureCard.dart';
+
 class MesFacturesPage extends StatefulWidget {
   const MesFacturesPage({super.key});
 
@@ -40,33 +42,16 @@ class _MesFacturesPageState extends State<MesFacturesPage> {
               itemCount: _factures.length,
               itemBuilder: (context, index) {
                 final facture = _factures[index];
-                return Card(
-                  margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: ListTile(
-                    title: Text(facture['client_name'] ?? 'Sans nom'),
-                    subtitle: Text(
-                        'Date : ${facture['date']?.toString().substring(0, 10) ?? 'N/A'}\n'
-                        'Total TTC : ${facture['total_ttc']?.toStringAsFixed(2) ?? '0'} €'),
-                    isThreeLine: true,
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        IconButton(
-                          icon: Icon(Icons.picture_as_pdf, color: Colors.blue),
-                          onPressed: () {
-                            Utils.exporterFacture(facture['id']);
-                          },
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.delete, color: Colors.red),
-                          onPressed: () async {
-                            await DatabaseHelper.instance
-                                .deleteFacture(facture['id']);
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
+                return FactureCard(
+                  facture: facture,
+                  onExport: () {
+                    Utils.exporterFacture(facture['id']);
+                  },
+                  onDelete: () async {
+                    await DatabaseHelper.instance.deleteFacture(facture['id']);
+                    // Pense à rafraîchir la liste après suppression
+                    _loadFactures();
+                  },
                 );
               },
             ),
