@@ -17,9 +17,9 @@ Cette application Flutter permet de créer, visualiser, sauvegarder et exporter 
 
 ## Captures d’écran
 
-| ![](assets/screenshots/screenshot_1.png) | ![](assets/screenshots/screenshot_2.png) | ![](assets/screenshots/screenshot_3.png) |
+| ![](assets/screenshots/screenshot_6.png) | ![](assets/screenshots/screenshot_1.png) | ![](assets/screenshots/screenshot_2.png) |
 | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| ![](assets/screenshots/screenshot_4.png) | ![](assets/screenshots/screenshot_5.png) |                                          |
+| ![](assets/screenshots/screenshot_3.png) | ![](assets/screenshots/screenshot_4.png) | ![](assets/screenshots/screenshot_5.png) |
 
 ---
 
